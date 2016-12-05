@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.*;
 
 import modele.*;
 
@@ -21,21 +22,6 @@ public class Tour {
 	private boolean enableApocalypse;
 	private static int numTour = 1;
 	
-	Tour(ArrayList<Joueur> joueurs, Tour tourAvant) {
-		this.joueurs = joueurs;
-		this.premiereJoueur = tourAvant.getPremiereJoueur();
-		if(this.premiereJoueur == joueurs.size() - 1) {
-			premiereJoueur = 0;
-		}else {
-			premiereJoueur ++;
-		}
-		for(Iterator<Joueur> it = joueurs.iterator();it.hasNext();) {
-			it.next().setaJouee(false);
-		}
-		if(tourAvant.isEnableApocalypse() == false) {
-			this.setEnableApocalypse(true);
-		}
-	}
 	Tour(ArrayList<Joueur> joueurs, int premiere) {
 		this.joueurs = joueurs;
 		this.premiereJoueur = premiere;
@@ -47,18 +33,6 @@ public class Tour {
 		}
 	}
 	
-	public void commencerNouveauTour() {
-		distribuerPointAction();
-		joueurs.get(premiereJoueur).phase();
-		terminerLeTour();
-	}
-	public void terminerLeTour() {
-		prochainumTour = new Tour(joueurs, this);
-		
-		//测试代码 ，用后删除！！！
-		System.out.println("进入下一圈");
-		prochainumTour.commencerNouveauTour();
-	}
 	private void distribuerPointAction() {
 		int n = joueurs.get(premiereJoueur).lancerDe();
 		switch(n) {
@@ -105,6 +79,37 @@ public class Tour {
 		}
 		
 	}
+	
+	Tour(ArrayList<Joueur> joueurs, Tour tourAvant) {
+		this.joueurs = joueurs;
+		this.premiereJoueur = tourAvant.getPremiereJoueur();
+		if(this.premiereJoueur == joueurs.size() - 1) {
+			premiereJoueur = 0;
+		}else {
+			premiereJoueur ++;
+		}
+		for(Iterator<Joueur> it = joueurs.iterator();it.hasNext();) {
+			it.next().setaJouee(false);
+		}
+		if(tourAvant.isEnableApocalypse() == false) {
+			this.setEnableApocalypse(true);
+		}
+	}
+	
+	
+	public void commencerNouveauTour() {
+		distribuerPointAction();
+		joueurs.get(premiereJoueur).phase();
+		terminerLeTour();
+	}
+	public void terminerLeTour() {
+		prochainumTour = new Tour(joueurs, this);
+		
+		//测试代码 ，用后删除！！！
+		System.out.println("进入下一圈");
+		prochainumTour.commencerNouveauTour();
+	}
+	
 	public int getPremiereJoueur() {
 		return premiereJoueur;
 	}

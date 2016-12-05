@@ -1,9 +1,12 @@
 package modele;
-import InterfaceBoite.Sacrifier;
-import InterfaceBoite.Utiliser;
 
-public abstract class CarteAction extends Carte implements Sacrifier,Utiliser {
+
+
+
+public abstract class CarteAction extends Carte {
 
 	protected int numDeCarte;
 	
+	
+	public abstract void utiliser();
 }

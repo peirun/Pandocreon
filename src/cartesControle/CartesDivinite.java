@@ -1,15 +1,17 @@
 package cartesControle;
-
+import cartesDiviniteModele.*;
+import java.util.Random;
 import java.util.LinkedList;
 import java.util.List;
 
+import modele.CarteAction;
 import modele.Divinite;
 
 public class CartesDivinite {
 	private static List<Divinite> divinitesPioche=new LinkedList<Divinite>();
 	private static CartesDivinite cartesDivinite = null;
 	
-	private static CartesDivinite getInstance() {
+	public static CartesDivinite getInstance() {
 		if(cartesDivinite==null) {
 			cartesDivinite = new CartesDivinite();
 		}
@@ -18,24 +20,32 @@ public class CartesDivinite {
 	}
 	
 	private CartesDivinite() {
-		pile.add(new Brewalen());
-		pile.add(new Drinded());
-		pile.add(new Gorpa());
-		pile.add(new Gwengbelen());
-		pile.add(new Killinstred());
-		pile.add(new Llewella());
-		pile.add(new PuiTara());
-		pile.add(new Romtec());
-		pile.add(new Sbingva());
-		pile.add(new Yarstur());
+		divinitesPioche.add(new Brewalen());
+		divinitesPioche.add(new Drinded());
+		divinitesPioche.add(new Gorpa());
+		divinitesPioche.add(new Gwengbelen());
+		divinitesPioche.add(new Killinstred());
+		divinitesPioche.add(new Llewella());
+		divinitesPioche.add(new PuiTara());
+		divinitesPioche.add(new Romtec());
+		divinitesPioche.add(new Sbingva());
+		divinitesPioche.add(new Yarstur());
 	}
 	
 	public Divinite returnDivinite() {
-		return cartesDivinite.remove(new Random().nextInt(cartesDivinite.size()));
+		return divinitesPioche.remove(new Random().nextInt(divinitesPioche.size()));
 	}
 
 	public List<Divinite> getCartesDivinite() {
-		return cartesDivinite;
+		return CartesDivinite.divinitesPioche;
+	}
+	
+	public Divinite retirerDivinite() {
+		Random r= new Random();
+		int ca = r.nextInt(divinitesPioche.size());
+		Divinite carte = divinitesPioche.get(ca);
+		divinitesPioche.remove(ca);
+		return carte;
 	}
 	
 	

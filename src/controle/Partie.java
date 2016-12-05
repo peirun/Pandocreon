@@ -17,6 +17,7 @@ public class Partie {
 	private int nbJoueurs;
 	private ArrayList<Joueur> joueurs;
 	private Cartes cartes;
+	private CartesDivinite divinites;//nouveaux
 	//private Phase phase;
 	private Tour tour;
 	private CartesSurTable cartesSurTable;
@@ -33,9 +34,13 @@ public class Partie {
 		this.setNbJoueurs(0);
 		this.joueurs = new ArrayList<Joueur>();
 		this.cartes = Cartes.getInstance();
+		this.divinites=CartesDivinite.getInstance();//nouveaux
 		this.setCarteSurTable(CartesSurTable.getCartesSurTable());
 	}
 	
+	public static Partie getPartie() {
+		return partie;
+	}
 	
 	/*-----------------------------*/
 	public void addJoueurs() {
@@ -73,7 +78,10 @@ public class Partie {
 		
 		while(it.hasNext()) {
 			Joueur j = it.next();
+			Divinite divinite=divinites.retirerDivinite();//nouveau
+			j.setDivinite(divinite);
 			j.completerMain(cartes);
+						
 			//j.setDivinite(Divinite.getInstance().returnDivinite());
 			if(it.hasNext()) {
 				j.setProchainJoueur(joueurs.get(j.getNumJoueur() + 1));

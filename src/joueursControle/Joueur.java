@@ -2,17 +2,11 @@ package joueursControle;
 
 import modele.*;
 import cartesControle.*;
-import cartesDiviniteModele.*;
-import cartesCroyantModele.*;
 import controle.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
-
-import modele.*;
 
 
 
@@ -55,6 +49,7 @@ public class Joueur {
 			break;
 		case 1:
 			completerMain(Partie.getPartie().getCartes());
+		
 			break;
 		case 2:
 			utiliser();
@@ -85,7 +80,18 @@ public class Joueur {
 	public void completerMain(Cartes cartes) {
 		// test
 		System.out.println("completerMain");
+		if(cartesALaMain.size()==7) {
+			System.out.println("CompleterMain n'est pas etre "
+					+ "permis!Vous avez deja eu 7 cartes");
+			return;
+			
+		}
+		while(cartesALaMain.size()<7) {
+			cartesALaMain.add(cartes.retirerCarte());//nouveaux
+		}
 	}
+	
+	
 
 	public void sacrifier() {
 		// test
@@ -103,9 +109,11 @@ public class Joueur {
 	}
 
 //autres methods
-	public void lancerDe() {
+	public int lancerDe() {
 		// test
 		System.out.println("lancerDE");
+		Random random = new Random();
+		return random.nextInt(3);
 	}
 
 	public void phase() {
@@ -144,8 +152,8 @@ public class Joueur {
 
 	
 
-	public string getDivinite() {
-		return Divinite.getOrigine();
+	public String getDivinite() {
+		return divinite.getOrigine();
 	}
 
 	public void setDivinite(Divinite divinite) {

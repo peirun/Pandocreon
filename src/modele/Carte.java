@@ -37,7 +37,7 @@ public class Carte {
 		sb.append("|ORIGINE:" + this.origine + '\n');
 		sb.append("|DESCRIPTION: " + this.description + '\n');
 		sb.append("----------------------------------------------------------------------" + '\n');
-		return sb.toString()
+		return sb.toString();
 	
 	}
 	

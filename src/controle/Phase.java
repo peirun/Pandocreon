@@ -1,9 +1,6 @@
 package controle;
 import joueursControle.*;
-import cartesControle.*;
-import cartesCroyantModele.*;
-import cartesDiviniteModele.*;
-import modele.*;
+
 
 import java.util.Scanner;
 

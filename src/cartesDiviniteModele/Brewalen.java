@@ -1,5 +1,6 @@
 package cartesDiviniteModele;
 
+import modele.*;
 
 public class Brewalen extends Divinite {
 	public Brewalen() {

@@ -1,6 +1,7 @@
 package cartesDiviniteModele;
 
 import modele.Divinite;
+import modele.Carte;
 
 public class Gorpa extends Divinite {
 	public Gorpa() {
