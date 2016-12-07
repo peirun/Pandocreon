@@ -1,22 +1,13 @@
 package controle;
-import joueursControle.*;
-import cartesControle.*;
-import cartesCroyantModele.*;
-import cartesDiviniteModele.*;
-
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.*;
 
-import modele.*;
+import joueursControle.Joueur;
 
 
 public class Tour {
 	
-	private Tour prochainumTour;
+	private Tour prochainTour;
 	private ArrayList<Joueur> joueurs;
 	private int premiereJoueur;
 	private boolean enableApocalypse;
@@ -30,6 +21,22 @@ public class Tour {
 		}
 		if(numTour == 1) {
 			this.enableApocalypse = false;
+		}
+	}
+	
+	Tour(ArrayList<Joueur> joueurs, Tour tourAvant) {
+		this.joueurs = joueurs;
+		this.premiereJoueur = tourAvant.getPremiereJoueur();
+		if(this.premiereJoueur == joueurs.size() - 1) {
+			premiereJoueur = 0;
+		}else {
+			premiereJoueur ++;
+		}
+		for(Iterator<Joueur> it = joueurs.iterator();it.hasNext();) {
+			it.next().setaJouee(false);
+		}
+		if(tourAvant.isEnableApocalypse() == false) {
+			this.setEnableApocalypse(true);
 		}
 	}
 	
@@ -51,64 +58,53 @@ public class Tour {
 			break;
 		case 1:
 			System.out.println("neant");
-			int k = 0;
-			while(k < joueurs.size()) {
-				Joueur j = joueurs.get(k);
-				if(j.getDivinite() == "Aube" || j.getDivinite()
-						== "Crepuscule") {
-					j.setPointActionNeant(j.getPointActionNeant() + 1);
-				}
-				k++;
-			}
-			break;
-		case 2:
-			System.out.println("nuit");
 			int i1 = 0;
 			while(i1 < joueurs.size()) {
-				Joueur j = joueurs.get(i1);
-				if(j.getDivinite() == "Nuit") {
-					j.setPointActionJour(j.getPointActionJour() + 2);
-				}else if(j.getDivinite() == "Crepuscule") {
-					j.setPointActionNuit(j.getPointActionNuit() + 1);
+				Joueur j1 = joueurs.get(i1);
+				if(j1.getDivinite() == "Aube" || j1.getDivinite()
+						== "Crepuscule") {
+					j1.setPointActionNeant(j1.getPointActionNeant() + 1);
 				}
 				i1++;
 			}
 			break;
+		case 2:
+			System.out.println("nuit");
+			int i2=0;
+			while(i2< joueurs.size()) {
+				Joueur j2 = joueurs.get(i2);
+				if(j2.getDivinite() == "Nuit") {
+					j2.setPointActionJour(j2.getPointActionJour() + 2);
+				}else if(j2.getDivinite() == "Crepuscule") {
+					j2.setPointActionNuit(j2.getPointActionNuit() + 1);
+				}
+				i2++;
+			}
+			break;
 		default:
+			System.out.println("Il y a quelques erreurs en distributant des cartes");
 			return;
 		}
 		
 	}
 	
-	Tour(ArrayList<Joueur> joueurs, Tour tourAvant) {
-		this.joueurs = joueurs;
-		this.premiereJoueur = tourAvant.getPremiereJoueur();
-		if(this.premiereJoueur == joueurs.size() - 1) {
-			premiereJoueur = 0;
-		}else {
-			premiereJoueur ++;
-		}
-		for(Iterator<Joueur> it = joueurs.iterator();it.hasNext();) {
-			it.next().setaJouee(false);
-		}
-		if(tourAvant.isEnableApocalypse() == false) {
-			this.setEnableApocalypse(true);
-		}
-	}
+	
 	
 	
 	public void commencerNouveauTour() {
-		distribuerPointAction();
+		this.distribuerPointAction();
 		joueurs.get(premiereJoueur).phase();
 		terminerLeTour();
 	}
 	public void terminerLeTour() {
-		prochainumTour = new Tour(joueurs, this);
+		prochainTour = new Tour(joueurs, this);
 		
-		//测试代码 ，用后删除！！！
-		System.out.println("进入下一圈");
-		prochainumTour.commencerNouveauTour();
+		//test
+		System.out.println("La tour prochain");
+		prochainTour.commencerNouveauTour();
 	}
+	
+	
 	
 	public int getPremiereJoueur() {
 		return premiereJoueur;

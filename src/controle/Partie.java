@@ -34,19 +34,19 @@ public class Partie {
 		this.setNbJoueurs(0);
 		this.joueurs = new ArrayList<Joueur>();
 		this.cartes = Cartes.getInstance();
-		this.divinites=CartesDivinite.getInstance();//nouveaux
 		this.setCarteSurTable(CartesSurTable.getCartesSurTable());
 	}
-	
+	//getPartie
 	public static Partie getPartie() {
 		return partie;
 	}
 	
-	/*-----------------------------*/
+	//ajouter joueurs
 	public void addJoueurs() {
 		joueurs.add(new Joueur());
 		this.setNbJoueurs(this.getNbJoueurs() + 1);
 	}
+	//suprimer joueurs
 	public void deleteJoueurs() {
 		joueurs.remove(joueurs.size() - 1);
 	}
@@ -58,17 +58,11 @@ public class Partie {
 		//test
 		System.out.println("remplir le nombre de joueurs qui va joue");
 		Scanner sc = new Scanner(System.in);
-		int n=sc.nextInt();
-//		boolean FLAG = false;
-//		while(!FLAG) {
-//			try {
-//				n = sc.nextInt();
-//				FLAG = true;
-//			}catch(Exception e) {
-//				System.out.println("LA Rempli est illegal");
-//				FLAG = false;
-//			}
-//		}
+	
+		int n = 0;
+		n = sc.nextInt();
+		//Ajouter exception pour ici
+
 //		ajouter joueurs
 		for(int i = 0;i < n; i++) {
 			this.addJoueurs();
@@ -77,22 +71,20 @@ public class Partie {
 		Iterator<Joueur> it = joueurs.iterator();
 		
 		while(it.hasNext()) {
-			Joueur j = it.next();
-			Divinite divinite=divinites.retirerDivinite();//nouveau
-			j.setDivinite(divinite);
+			Joueur j = it.next();			
 			j.completerMain(cartes);
 						
 			//j.setDivinite(Divinite.getInstance().returnDivinite());
 			if(it.hasNext()) {
 				j.setProchainJoueur(joueurs.get(j.getNumJoueur() + 1));
-				System.out.println("玩家" + j.getNumJoueur() +"设置下家成功！");
+				System.out.println("Joueur" + j.getNumJoueur() +"Initialisation fini");
 			}else {
 				j.setProchainJoueur(joueurs.get(0));
-				System.out.println("玩家" + j.getNumJoueur() +"设置下家循环完成！");
+				System.out.println("Joueur" + j.getNumJoueur() +"Tous les joueurs initialisent");
 			}
 		}
 		tour = new Tour(joueurs, 0);
-		//测试代码 ，用后删除！！！
+		//test
 		System.out.println("进入第一圈");
 		tour.commencerNouveauTour();
 	}
@@ -100,53 +92,53 @@ public class Partie {
 	
 	
 	//Decider qui va gagner
-	public int compareNbPriere() {
-		if(this.getNbJoueurs() <= 3) {
-			int max= joueurs.get(0).getNbPriere();
-			int index = 0;
-			int tmp = 0;
-			int i = 1;
-			while(i < joueurs.size()) {
-				tmp = joueurs.get(i).getNbPriere();
-				if(tmp >= max) {
-					max = tmp;
-					index = i;
-				}
-				i++;
-			}
-			i = 0;
-			while(i < joueurs.size()) {
-				if(i != index) {
-					if(max == joueurs.get(i).getNbPriere()) {
-						return -1;
-					}
-				}
-			}
-			return index;
-		}else {
-			int min= joueurs.get(0).getNbPriere();
-			int index = 0;
-			int tmp = 0;
-			int i = 1;
-			while(i < joueurs.size()) {
-				tmp = joueurs.get(i).getNbPriere();
-				if(tmp <= min) {
-					min = tmp;
-					index = i;
-				}
-				i++;
-			}
-			i = 0;
-			while(i < joueurs.size()) {
-				if(i != index) {
-					if(min == joueurs.get(i).getNbPriere()) {
-						return -1;
-					}
-				}
-			}
-			return index;
-		}
-	}
+//	public int compareNbPriere() {
+//		if(this.getNbJoueurs() <= 3) {
+//			int max= joueurs.get(0).getNbPriere();
+//			int index = 0;
+//			int tmp = 0;
+//			int i = 1;
+//			while(i < joueurs.size()) {
+//				tmp = joueurs.get(i).getNbPriere();
+//				if(tmp >= max) {
+//					max = tmp;
+//					index = i;
+//				}
+//				i++;
+//			}
+//			i = 0;
+//			while(i < joueurs.size()) {
+//				if(i != index) {
+//					if(max == joueurs.get(i).getNbPriere()) {
+//						return -1;
+//					}
+//				}
+//			}
+//			return index;
+//		}else {
+//			int min= joueurs.get(0).getNbPriere();
+//			int index = 0;
+//			int tmp = 0;
+//			int i = 1;
+//			while(i < joueurs.size()) {
+//				tmp = joueurs.get(i).getNbPriere();
+//				if(tmp <= min) {
+//					min = tmp;
+//					index = i;
+//				}
+//				i++;
+//			}
+//			i = 0;
+//			while(i < joueurs.size()) {
+//				if(i != index) {
+//					if(min == joueurs.get(i).getNbPriere()) {
+//						return -1;
+//					}
+//				}
+//			}
+//			return index;
+//		}
+//	}
 	public void supprimerJoueur(Joueur j) {
 		joueurs.remove(j);
 	}

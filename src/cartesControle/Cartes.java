@@ -3,14 +3,14 @@ package cartesControle;
 import java.util.ArrayList;
 import java.util.Random;
 
-import modele.Carte;
+
 import modele.CarteAction;
 
 public class Cartes {
 
 	private ArrayList<CarteAction> cartes;
 	private int nbCartes;
-	private static Cartes cartesPioche;
+	private static Cartes cartesPioche=null;
 	private int numCarte;
 	
 	private Cartes() {
@@ -44,14 +44,7 @@ public class Cartes {
 	
 	//retirer carte [comment evider des cartes ne sont pas doublon]
 	public CarteAction retirerCarte() {
-//		Random ca= new Random();
-//		return cartes.get(ca.nextInt(cartes.size()));
-		Random r= new Random();
-		int ca = r.nextInt(cartes.size());
-		CarteAction carte = cartes.get(ca);
-		cartes.remove(ca);
-		return carte;
-			
+		return cartes.get(new Random().nextInt(cartes.size()));
 	}	
 	
 	

@@ -37,6 +37,7 @@ public class Joueur {
 		nbPriere = 0;
 		phase = new Phase(this);// phase(this)
 		this.setNumJoueur(nbJoueurs);
+		this.divinite=CartesDivinite.getInstance().returnDivinite();
 		nbJoueurs++;
 
 	}
@@ -80,15 +81,19 @@ public class Joueur {
 	public void completerMain(Cartes cartes) {
 		// test
 		System.out.println("completerMain");
+		
+		while(cartesALaMain.size()<7) {
+			cartesALaMain.add(cartes.retirerCarte());//nouveaux
+		}
+		
+		
 		if(cartesALaMain.size()==7) {
 			System.out.println("CompleterMain n'est pas etre "
 					+ "permis!Vous avez deja eu 7 cartes");
 			return;
 			
 		}
-		while(cartesALaMain.size()<7) {
-			cartesALaMain.add(cartes.retirerCarte());//nouveaux
-		}
+		
 	}
 	
 	
@@ -119,7 +124,7 @@ public class Joueur {
 	public void phase() {
 		// test
 		System.out.println("PHASE COMMENCE");
-		this.phase.start();
+		this.phase.commencerUnPhase();
 	}
 
 	public void afficherCartes() {

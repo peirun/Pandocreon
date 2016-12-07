@@ -2,16 +2,48 @@ package modele;
 import interfaceBoite.Sacrifier;
 import joueursControle.Joueur;
 
-public class Croyant extends CarteAction implements Sacrifier {
+public abstract class Croyant extends CarteAction implements Sacrifier {
 
-	private boolean estRattache;
-	private int nbCroyantRepresente; 
+	protected boolean estRattache;
+
+	protected int nbPierre;
+	
 	
 	protected Croyant() {
 		super();
 		this.type="Croyant";
 	}
 	
+	
+	
+	public boolean isEstRattache() {
+		return estRattache;
+	}
+
+
+
+	public void setEstRattache(boolean estRattache) {
+		this.estRattache = estRattache;
+	}
+
+
+
+	
+
+
+
+	public int getNbPierre() {
+		return nbPierre;
+	}
+
+
+
+	public void setNbPierre(int nbPierre) {
+		this.nbPierre = nbPierre;
+	}
+
+
+
 	public void utiliser() {
 	
 	}

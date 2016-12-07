@@ -40,13 +40,7 @@ public class CartesDivinite {
 		return CartesDivinite.divinitesPioche;
 	}
 	
-	public Divinite retirerDivinite() {
-		Random r= new Random();
-		int ca = r.nextInt(divinitesPioche.size());
-		Divinite carte = divinitesPioche.get(ca);
-		divinitesPioche.remove(ca);
-		return carte;
-	}
+	
 	
 	
 }
