@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
-
-public class Joueur {
+public abstract class Joueur {
 
 	private int numJoueur;
 	private ArrayList<CarteAction> cartesALaMain;
@@ -21,11 +19,7 @@ public class Joueur {
 	private int nbPriere;
 	private List<Croyant> croyants = new ArrayList<Croyant>();
 	private List<GuideSpirituel> guideSpirituels = new ArrayList<GuideSpirituel>();
-	private Phase phase;
 	private CartesSurTable cartesSurTable = CartesSurTable.getCartesSurTable();
-	private Joueur prochainJoueur;
-	private static int nbJoueurs = 0;
-	private boolean aJouee;
 
 	public Joueur() {
 		setCartesALaMain(new ArrayList<CarteAction>());
@@ -35,86 +29,65 @@ public class Joueur {
 		setPointActionNeant(0);
 		setPointActionNuit(0);
 		nbPriere = 0;
-		phase = new Phase(this);// phase(this)
-		this.setNumJoueur(nbJoueurs);
-		this.divinite=CartesDivinite.getInstance().returnDivinite();
-		nbJoueurs++;
-
+		this.divinite = CartesDivinite.getInstance().returnDivinite();
 	}
 	// obtenir pierre
 
-	public void choisirUneOperation(int n) {
-		switch (n) {
-		case 0:
-			deffausser();
-			break;
-		case 1:
-			completerMain(Partie.getPartie().getCartes());
-		
-			break;
-		case 2:
-			utiliser();
-			break;
-		case 3:
-			sacrifier();
-			break;
-		case 4:
-			capaciter();
-			break;
-		default:
-			//
-			break;
+	public void choisirUneOperation() {
+		while (true) {
+			System.out.println("chose un chiox: 0:utiliser, 1:sacrifier, 2:mettreAFinTonPhase");
+			int n = Partie.sc.nextInt();
+
+			switch (n) {
+			
+			case 0:
+				utiliser();
+				break;
+			case 1:
+				sacrifier();
+				break;
+			case 2:
+				mettreAFinTonPhase();
+				return;
+			default:
+				//
+				break;
+			}
 		}
 	}
 
-//Choisir un operation
-	public void deffausser() {
-		// test
-		System.out.println("deffausser");
-	}
 
 	public void utiliser() {
 		// test
 		System.out.println("utiliser");
 	}
 
-	public void completerMain(Cartes cartes) {
+	public final void completerMain() {
 		// test
+		Cartes cartes = Cartes.getInstance();
 		System.out.println("completerMain");
-		
-		while(cartesALaMain.size()<7) {
-			cartesALaMain.add(cartes.retirerCarte());//nouveaux
+
+		while (cartesALaMain.size() < 7) {
+			cartesALaMain.add(cartes.retirerCarte());// nouveaux
 		}
-		
-		
-		if(cartesALaMain.size()==7) {
-			System.out.println("CompleterMain n'est pas etre "
-					+ "permis!Vous avez deja eu 7 cartes");
-			return;
-			
-		}
-		
 	}
-	
-	
+
+	public abstract void choisirDefausse();
 
 	public void sacrifier() {
 		// test
 		System.out.println("sacrifier");
 	}
 
-	public void capaciter() {
-		// test
-		System.out.println("capaciter");
-	}
-	
 	public void mettreAFinTonPhase() {
 		// test
 		System.out.println("mettreAFinTonPhase");
+		Tour t = Partie.getInstance().getTour();
+		t.terminerPhase(this);
 	}
 
-//autres methods
-	public int lancerDe() {
+	// autres methods
+	public final int lancerDe() {
 		// test
 		System.out.println("lancerDE");
 		Random random = new Random();
@@ -124,7 +97,9 @@ public class Joueur {
 	public void phase() {
 		// test
 		System.out.println("PHASE COMMENCE");
-		this.phase.commencerUnPhase();
+		this.choisirDefausse();
+		this.completerMain();
+		this.choisirUneOperation();
 	}
 
 	public void afficherCartes() {
@@ -154,8 +129,6 @@ public class Joueur {
 	public void setCartesALaMain(ArrayList<CarteAction> cartesALaMain) {
 		this.cartesALaMain = cartesALaMain;
 	}
-
-	
 
 	public String getDivinite() {
 		return divinite.getOrigine();
@@ -212,30 +185,9 @@ public class Joueur {
 	public void setCartesSurTable(CartesSurTable cartesSurTable) {
 		this.cartesSurTable = cartesSurTable;
 	}
-	
-	
 
 	public int getNbPriere() {
 		return nbPriere;
 	}
-
-	public boolean isaJouee() {
-		return aJouee;
-	}
-
-	public void setaJouee(boolean aJouee) {
-		this.aJouee = aJouee;
-	}
-
-	
-	
-	public Joueur getProchainJoueur() {
-		return prochainJoueur;
-	}
-
-	public void setProchainJoueur(Joueur prochainJoueur) {
-		this.prochainJoueur=prochainJoueur;
-	}
-	
 
 }

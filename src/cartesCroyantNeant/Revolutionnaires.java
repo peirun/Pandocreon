@@ -1,10 +1,8 @@
-package Model.croyantNeant;
-import Model.*;
-import modele.Croyant;
-
+package cartesCroyantNeant;
 import java.util.LinkedList;
 
-import Controller.*;
+import joueursControle.Joueur;
+import modele.Croyant;
 
 public class Revolutionnaires extends Croyant {
 	private String[] dogemes={"Symboles","Humain","Chaos"};

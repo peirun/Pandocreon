@@ -1,5 +1,7 @@
 package cartesGuideSpirituel;
 
-public class Clerc1 {
+import modele.GuideSpirituel;
+
+public class Clerc1 extends GuideSpirituel {
 
 }

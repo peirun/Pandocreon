@@ -1,13 +1,9 @@
 package joueursControle;
-import interfaceBoite.StrategieDecision;
 
-public class JoueurVirtual extends Joueur {
-	private StrategieDecision sd;
-
+public class JoueurPhysique extends Joueur {
 	@Override
 	public void choisirDefausse() {
 		// TODO Auto-generated method stub
 		System.out.println("choisir defausse");
 	}
-	
 }
