@@ -3,12 +3,11 @@ import modele.CarteAction;
 import modele.Croyant;
 
 public class Demons1 extends Croyant {
-	
+
 	public Demons1() {
-		this.type="croyant";
 		this.nom="Demon";
 		this.origine=CarteAction.NUIT;
-		String[] dogmes= {CarteAction.HUMAIN,CarteAction.NATURE,CarteAction.MYSTIQUE};
+		dogmes = new String[] {CarteAction.HUMAIN,CarteAction.NATURE,CarteAction.MYSTIQUE};
 		this.description="Donne un point d'Action d'Origine Nuit. ";
 		this.nbPierre=2;
 		

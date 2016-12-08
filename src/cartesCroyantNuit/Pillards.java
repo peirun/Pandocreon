@@ -3,13 +3,12 @@ import joueursControle.Joueur;
 import modele.Croyant;
 
 public class Pillards extends Croyant {
-	private String[] dogemes={"Mistique","Nature","Symboles"};
 	
 	public Pillards() {
 	
 		this.nom="Pillards";
 		this.origine=Croyant.NUIT;
-		String[] dogmes= {Croyant.MYSTIQUE,Croyant.NATURE,Croyant.SYMBOLES};
+		dogmes = new String[] {Croyant.MYSTIQUE,Croyant.NATURE,Croyant.SYMBOLES};
 		this.description="R¨¦cup¨¦rez les points d'Action d'une Divinit¨¦ n'ayant pas "
 				+ "encore jou¨¦ durant ce tour. Les points d'Action "
 				+ "gardent leur Origine. La Divinit¨¦ perd ses points.";

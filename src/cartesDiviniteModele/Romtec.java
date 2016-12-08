@@ -5,7 +5,6 @@ import modele.Divinite;
 
 public class Romtec extends Divinite {
 	public Romtec() {
-		this.type = "divinite";
 		this.origine = Carte.CREPUSCULE;
 		this.nom = "Romtec";
 		this.description = "";

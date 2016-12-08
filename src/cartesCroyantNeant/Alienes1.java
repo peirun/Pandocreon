@@ -10,7 +10,7 @@ public class Alienes1 extends Croyant{
 	
 		this.nom="Alienes";
 		this.origine=Croyant.NEANT;
-		String[] dogmes= {Croyant.SYMBOLES,Croyant.HUMAIN,Croyant.CHAOS};
+		dogmes = new String[] {Croyant.SYMBOLES,Croyant.HUMAIN,Croyant.CHAOS};
 		this.description="Emp¨ºche une Divinit¨¦ poss¨¦dant "
 				+ "le Dogme Nature ou Mystique de sacrifier une de ses cartes de Croyants durant ce tour.";
 		this.nbPierre=2;

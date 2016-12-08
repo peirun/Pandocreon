@@ -10,18 +10,18 @@ import java.util.Random;
 
 public abstract class Joueur {
 
-	private int numJoueur;
-	private ArrayList<CarteAction> cartesALaMain;
-	private Divinite divinite;
-	private int pointActionJour;
-	private int pointActionNeant;
-	private int pointActionNuit;
-	private int nbPriere;
-	private List<Croyant> croyants = new ArrayList<Croyant>();
-	private List<GuideSpirituel> guideSpirituels = new ArrayList<GuideSpirituel>();
-	private CartesSurTable cartesSurTable = CartesSurTable.getCartesSurTable();
+	protected int numJoueur;
+	protected ArrayList<CarteAction> cartesALaMain;
+	protected Divinite divinite;
+	protected int pointActionJour;
+	protected int pointActionNeant;
+	protected int pointActionNuit;
+	protected int nbPriere;
+	protected List<Croyant> croyants = new ArrayList<Croyant>();
+	protected List<GuideSpirituel> guideSpirituels = new ArrayList<GuideSpirituel>();
 
 	public Joueur() {
+		
 		setCartesALaMain(new ArrayList<CarteAction>());
 		// comment distribuer divinite
 		// carteDivinite = new Divinite();
@@ -30,37 +30,12 @@ public abstract class Joueur {
 		setPointActionNuit(0);
 		nbPriere = 0;
 		this.divinite = CartesDivinite.getInstance().returnDivinite();
+		
 	}
 	// obtenir pierre
 
-	public void choisirUneOperation() {
-		while (true) {
-			System.out.println("chose un chiox: 0:utiliser, 1:sacrifier, 2:mettreAFinTonPhase");
-			int n = Partie.sc.nextInt();
-
-			switch (n) {
-			
-			case 0:
-				utiliser();
-				break;
-			case 1:
-				sacrifier();
-				break;
-			case 2:
-				mettreAFinTonPhase();
-				return;
-			default:
-				//
-				break;
-			}
-		}
-	}
-
-
-	public void utiliser() {
-		// test
-		System.out.println("utiliser");
-	}
+	public abstract void choisirUneOperation();
+	
 
 	public final void completerMain() {
 		// test
@@ -78,6 +53,7 @@ public abstract class Joueur {
 		// test
 		System.out.println("sacrifier");
 	}
+	public abstract void utiliser();
 
 	public void mettreAFinTonPhase() {
 		// test
@@ -97,19 +73,19 @@ public abstract class Joueur {
 	public void phase() {
 		// test
 		System.out.println("PHASE COMMENCE");
+		System.out.println(CartesSurTable.getInstance().getCroyantDeposes());
+		System.out.println(CartesSurTable.getInstance().getCroyantRattaches(this));
+		System.out.println(CartesSurTable.getInstance().getGuidesUtilises(this));
 		this.choisirDefausse();
 		this.completerMain();
 		this.choisirUneOperation();
 	}
-
-	public void afficherCartes() {
-		// test
-		System.out.println("AFFICHERcARTES");
-	}
-
-	public void afficherPointAction() {
-		// test
-		System.out.println("AFFICHERpOINTaCTION");
+	
+	public void showPoinAction() {
+		System.out.println("Divinite:"+this.getDivinite());
+		System.out.println("Jour:"+ this.getPointActionJour());
+		System.out.println("Nuit:"+this.getPointActionNuit());
+		System.out.println("Neant:"+this.getPointActionNeant());	
 	}
 
 	// herite des methodes du joueur
@@ -126,11 +102,15 @@ public abstract class Joueur {
 		return cartesALaMain;
 	}
 
-	public void setCartesALaMain(ArrayList<CarteAction> cartesALaMain) {
-		this.cartesALaMain = cartesALaMain;
+	public void setCartesALaMain(ArrayList<CarteAction> cartes) {
+		this.cartesALaMain = cartes;
 	}
 
 	public String getDivinite() {
+		return divinite.toString();
+	}
+
+	public String getOrigine() {
 		return divinite.getOrigine();
 	}
 
@@ -176,14 +156,6 @@ public abstract class Joueur {
 
 	public void setGuideSpirituels(List<GuideSpirituel> guideSpirituels) {
 		this.guideSpirituels = guideSpirituels;
-	}
-
-	public CartesSurTable getCartesSurTable() {
-		return cartesSurTable;
-	}
-
-	public void setCartesSurTable(CartesSurTable cartesSurTable) {
-		this.cartesSurTable = cartesSurTable;
 	}
 
 	public int getNbPriere() {

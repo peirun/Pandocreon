@@ -3,13 +3,11 @@ import joueursControle.Joueur;
 import modele.Croyant;
 
 public class Alchimistes3 extends Croyant{
-	private String[] dogemes={"Mistique","Humain","Chaos"};
-	
 	public Alchimistes3() {
 	
 		this.nom="Alchimiste";
 		this.origine=Croyant.NUIT;
-		String[] dogmes= {Croyant.MYSTIQUE,Croyant.HUMAIN,Croyant.CHAOS};
+		dogmes = new String[] {Croyant.MYSTIQUE,Croyant.HUMAIN,Croyant.CHAOS};
 		this.description="Vous piochez deux cartes au hasard dans la main d'une autre Divinit¨¦.";
 		this.nbPierre=2;
 		

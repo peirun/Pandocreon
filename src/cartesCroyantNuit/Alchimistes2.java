@@ -3,14 +3,13 @@ import joueursControle.Joueur;
 import modele.Croyant;
 
 public class Alchimistes2 extends Croyant{
-	private String[] dogemes={"Mystique","Nature","Chaos"};
 	private String[] dogemesDivinite={"Humain","Mistique"};
 	
 	public Alchimistes2() {
 	
 		this.nom="Alchimistes";
 		this.origine=Croyant.NUIT;
-		String[] dogmes= {Croyant.MYSTIQUE,Croyant.NATURE,Croyant.CHAOS};
+		dogmes = new String[] {Croyant.MYSTIQUE,Croyant.NATURE,Croyant.CHAOS};
 		this.description="Emp¨ºche une Divinit¨¦ poss¨¦dant le Dogme Humain ou Mystique "
 				+ "de sacrifier une de ses cartes de Croyants durant ce tour de jeu";
 		this.nbPierre=2;

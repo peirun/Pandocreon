@@ -3,6 +3,7 @@ package controle;
 import java.util.ArrayList;
 
 import joueursControle.Joueur;
+import joueursControle.JoueurPhysique;
 
 public class Tour {
 	private ArrayList<Joueur> joueurs;
@@ -23,9 +24,9 @@ public class Tour {
 			int i = 0;
 			while (i < joueurs.size()) {
 				Joueur j = joueurs.get(i);
-				if (j.getDivinite() == "jour") {
+				if ("jour".equalsIgnoreCase(j.getOrigine())) {
 					j.setPointActionJour(j.getPointActionJour() + 2);
-				} else if (j.getDivinite() == "Aube") {
+				} else if ("aube".equalsIgnoreCase(j.getOrigine())) {
 					j.setPointActionJour(j.getPointActionJour() + 1);
 				}
 				i++;
@@ -36,7 +37,7 @@ public class Tour {
 			int i1 = 0;
 			while (i1 < joueurs.size()) {
 				Joueur j1 = joueurs.get(i1);
-				if (j1.getDivinite() == "Aube" || j1.getDivinite() == "Crepuscule") {
+				if ("Aube".equalsIgnoreCase(j1.getOrigine()) || "crepuscule".equalsIgnoreCase(j1.getOrigine())) {
 					j1.setPointActionNeant(j1.getPointActionNeant() + 1);
 				}
 				i1++;
@@ -47,9 +48,9 @@ public class Tour {
 			int i2 = 0;
 			while (i2 < joueurs.size()) {
 				Joueur j2 = joueurs.get(i2);
-				if (j2.getDivinite() == "Nuit") {
+				if ("nuit".equalsIgnoreCase(j2.getOrigine())) {
 					j2.setPointActionJour(j2.getPointActionJour() + 2);
-				} else if (j2.getDivinite() == "Crepuscule") {
+				} else if ("crepuscule".equalsIgnoreCase(j2.getOrigine())) {
 					j2.setPointActionNuit(j2.getPointActionNuit() + 1);
 				}
 				i2++;
@@ -64,6 +65,12 @@ public class Tour {
 
 	private void joueurSuivant() {
 		System.out.println("Joueur " + joueurCourant);
+		if(joueurs.get(joueurCourant) instanceof JoueurPhysique) {
+			//JoueurPhysique.getDivinite();
+			JoueurPhysique joueur = (JoueurPhysique) joueurs.get(joueurCourant);
+			joueur.showPoinAction();
+			joueur.showCartes();
+		}
 		joueurs.get(joueurCourant).phase();
 	}
 

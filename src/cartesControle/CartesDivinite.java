@@ -1,10 +1,18 @@
 package cartesControle;
-import cartesDiviniteModele.*;
-import java.util.Random;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
-import modele.CarteAction;
+import cartesDiviniteModele.Brewalen;
+import cartesDiviniteModele.Drinded;
+import cartesDiviniteModele.Gorpa;
+import cartesDiviniteModele.Gwengbelen;
+import cartesDiviniteModele.Killinstred;
+import cartesDiviniteModele.Llewella;
+import cartesDiviniteModele.PuiTara;
+import cartesDiviniteModele.Romtec;
+import cartesDiviniteModele.Sbingva;
+import cartesDiviniteModele.Yarstur;
 import modele.Divinite;
 
 public class CartesDivinite {

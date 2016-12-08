@@ -32,13 +32,15 @@ public class Carte {
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("----------------------------------------------------------------------\n");
-		sb.append("|TYPE: " + this.type + '\n');
-		sb.append("|NOM: "+ this.nom + '\n');
-		sb.append("|ORIGINE:" + this.origine + '\n');
-		sb.append("|DESCRIPTION: " + this.description + '\n');
+		sb.append("TYPE: " + this.type + '\n');
+		sb.append("NOM: "+ this.nom + '\n');
+		sb.append("ORIGINE:" + this.origine + '\n');
+		sb.append("DESCRIPTION: " + this.description + '\n');
 		sb.append("----------------------------------------------------------------------" + '\n');
 		return sb.toString();
 	
 	}
+	
+	
 	
 }

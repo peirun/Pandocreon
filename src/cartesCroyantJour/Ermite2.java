@@ -11,7 +11,6 @@ public class Ermite2 extends Croyant {
 	
 		this.nom="Ermite";
 		this.origine=Croyant.JOUR;
-		String[] dogmes= {Croyant.MYSTIQUE,Croyant.NATURE,Croyant.SYMBOLES};
 		this.description="Impose le sacrifice d'un Croyant d'un autre joueur,qui choisit "
 				+ "la carte La capacit¨¦ sp¨¦ciale du sacrifice est jou¨¦e. ";
 		this.nbPierre=1;

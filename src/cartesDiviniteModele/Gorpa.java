@@ -5,7 +5,6 @@ import modele.Carte;
 
 public class Gorpa extends Divinite {
 	public Gorpa() {
-		this.type = "divinite";
 		this.origine = Carte.CREPUSCULE;
 		this.nom = "Gorpa";
 		this.description = "";

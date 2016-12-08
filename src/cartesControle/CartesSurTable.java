@@ -1,59 +1,64 @@
 package cartesControle;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import javax.print.attribute.standard.RequestingUserName;
-
-import modele.*;
+import joueursControle.Joueur;
+import modele.CarteAction;
+import modele.Divinite;
 
 public class CartesSurTable {
-	private static CartesSurTable cartesSurTable;
+	private static CartesSurTable instance = null;
 	private ArrayList<CarteAction> croyantDeposes;
-	private ArrayList<CarteAction> guidesUtilises;
-	private ArrayList<CarteAction> croyantRattaches;
+	private HashMap<Joueur, ArrayList<CarteAction>> croyantRattaches;
+	private HashMap<Joueur, ArrayList<CarteAction>> guidesUtilises;
 	private ArrayList<Divinite> divinites;
-	
-	
-	public CartesSurTable() {
-		setCroyantDeposes(new ArrayList<CarteAction>());
-		setGuidesUtilises(new ArrayList<CarteAction>());
-		setCroyantRattaches(new ArrayList<CarteAction>());
-		setDivinites(new ArrayList<Divinite>());
-		
+
+	private CartesSurTable() {
+		this.croyantDeposes = new ArrayList<CarteAction>();
+		this.guidesUtilises = new HashMap<Joueur, ArrayList<CarteAction>>();
+		this.croyantRattaches = new HashMap<Joueur, ArrayList<CarteAction>>();
+		this.divinites = new ArrayList<Divinite>();
 	}
-	public static CartesSurTable getCartesSurTable() {
-		return cartesSurTable;
+
+	public static CartesSurTable getInstance() {
+		if (instance == null) {
+			instance = new CartesSurTable();
+		}
+		return instance;
 	}
-	public static void setCartesSurTable(CartesSurTable cartesSurTable) {
-		CartesSurTable.cartesSurTable = cartesSurTable;
-	}
+
+
 	public ArrayList<CarteAction> getCroyantDeposes() {
 		return croyantDeposes;
 	}
+
 	public void setCroyantDeposes(ArrayList<CarteAction> croyantDeposes) {
 		this.croyantDeposes = croyantDeposes;
 	}
-	public ArrayList<CarteAction> getGuidesUtilises() {
-		return guidesUtilises;
+
+	public ArrayList<CarteAction> getGuidesUtilises(Joueur j) {
+		return guidesUtilises.get(j);
 	}
-	public void setGuidesUtilises(ArrayList<CarteAction> guidesUtilises) {
+
+	public void setGuidesUtilises(HashMap<Joueur, ArrayList<CarteAction>> guidesUtilises) {
 		this.guidesUtilises = guidesUtilises;
 	}
-	public ArrayList<CarteAction> getCroyantRattaches() {
-		return croyantRattaches;
+
+	public ArrayList<CarteAction> getCroyantRattaches(Joueur j) {
+		return croyantRattaches.get(j);
 	}
-	public void setCroyantRattaches(ArrayList<CarteAction> croyantRataches) {
-		this.croyantRattaches = croyantRataches;
+
+	public void setCroyantRattaches(HashMap<Joueur, ArrayList<CarteAction>> croyantRattaches) {
+		this.croyantRattaches = croyantRattaches;
 	}
+
 	public ArrayList<Divinite> getDivinites() {
 		return divinites;
 	}
+
 	public void setDivinites(ArrayList<Divinite> divinites) {
 		this.divinites = divinites;
 	}
-	
-	
-	
-	
-	
+
 }

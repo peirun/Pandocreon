@@ -8,7 +8,6 @@ public class Moines1 extends Croyant {
 	
 		this.nom="Moines";
 		this.origine=Croyant.JOUR;
-		String[] dogmes= {Croyant.HUMAIN,Croyant.NATURE,Croyant.MYSTIQUE};
 		this.description="Donne un point d'Action d'Origine Jour ";
 		this.nbPierre=2;
 	}

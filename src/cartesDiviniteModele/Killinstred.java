@@ -5,7 +5,6 @@ import modele.Divinite;
 
 public class Killinstred extends Divinite {
 	public Killinstred() {
-		this.type = "divinite";
 		this.origine = Carte.NUIT;
 		this.nom = "Killinstred";
 		this.description = "";

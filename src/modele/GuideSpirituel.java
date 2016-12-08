@@ -7,11 +7,16 @@ import interfaceBoite.Sacrifier;
 import joueursControle.Joueur;
 
 public class GuideSpirituel extends CarteAction implements Sacrifier {
-	private int nbCroyantMax;
-	private int nbCroyantSontRattache;
-	private List<Croyant> croyants=new ArrayList<Croyant>();
+	protected int nbCroyantMax;
+	protected int nbCroyantSontRattache;
+	protected List<Croyant> croyants=new ArrayList<Croyant>();
 	
-	
+	public GuideSpirituel() {
+		// TODO Auto-generated constructor stub
+		super();
+		this.type="Guide";
+		
+	}
 	@Override
 	public void sacrifier(Joueur joueur) {
 		// TODO Auto-generated method stub
