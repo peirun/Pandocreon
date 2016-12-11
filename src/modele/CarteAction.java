@@ -9,4 +9,8 @@ public abstract class CarteAction extends Carte {
 	
 	
 	public abstract void utiliser();
+	
+	public abstract void sacrifier();
+
+	
 }

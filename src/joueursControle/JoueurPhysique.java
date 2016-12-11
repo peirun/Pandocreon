@@ -1,12 +1,13 @@
 package joueursControle;
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.sound.midi.Patch;
-
 import cartesControle.CartesSurTable;
 import controle.Partie;
+import modele.Apocalypse;
 import modele.Carte;
 import modele.CarteAction;
 import modele.Croyant;
@@ -14,34 +15,42 @@ import modele.DeusEx;
 import modele.GuideSpirituel;
 
 public class JoueurPhysique extends Joueur {
-	//Il y a quelques problems
-	
-	public void choisirDefausse() {	
-		
-		boolean end = false;
-		try {
-			do{
-				showCartes();
-				System.out.println("Choisir quels cartes vous voulez perdre：");
-				int n=Partie.sc.nextInt();
-				if(n >= 0 && n < cartesALaMain.size()) {
-					cartesALaMain.remove(n);
-				}else {
-					System.out.println("Il n'y a pas de ce carte que vous chosissez. Reessayer s'il vous plait");
-					continue;
-				}
-				System.out.println("Continuer deffausser，ou tap 'false' pour quitter");
-				end = Partie.sc.next().equals("false");
-			}while(!end);
-		}catch(Exception e) {
-			System.out.println("Reessayer tap");
-			
-			choisirDefausse();
-		}
-		
-		System.out.println("Defausse fini");
-	}
+	private CarteAction c;
+	private ArrayList<CarteAction> carteADefausser = new ArrayList<CarteAction>();
 
+	//Il y a quelques proble
+	
+	public void choisirDefausse() {
+			while (true) {
+				System.out.println("Etape 1 - Defausse");
+				System.out.println("  1. Ajouter une carte a defausser");
+				System.out.println("  2. Enlever une carte a defausser");
+				System.out.println("  3. Valider ou quitter");
+				int n = Partie.getInt("Choix : ", 1, 3);
+				switch(n) {
+					case 1:
+						System.out.println("Chosir un carte a defausser"+'\n');
+						this.showCartes();
+						int a=Partie.sc.nextInt();
+						this.carteADefausser.add(this.cartesALaMain.remove(a));
+						break;
+					case 2:
+						this.showCartesAdefausser(carteADefausser);
+						int l = Partie.sc.nextInt();
+						this.cartesALaMain.add(carteADefausser.get(l));
+						break;
+					case 3:
+						// TODO: defausser les cartes choisies
+						return;
+				}
+			}	
+	}
+	public void showCartesAdefausser(ArrayList<CarteAction> carteActions) {
+		for (int i = 0; i < carteADefausser.size(); i++) {
+			System.out.println(i + ".");
+			System.out.println(carteADefausser.get(i).toString());
+		}
+	}
 	public void showCartes() {
 		for (int i = 0; i < cartesALaMain.size(); i++) {
 			System.out.println(i + ".");
@@ -50,85 +59,170 @@ public class JoueurPhysique extends Joueur {
 	}
 
 	public void utiliser() {
-		showPoinAction();
-		System.out.println("Choisir un carte：");
+	
 		showCartes();
-		int i = Partie.sc.nextInt();
-		CarteAction c= cartesALaMain.remove(i);
+		showPointAction();
+		while(true) {
+			System.out.println("Choisir quel operation vous voulez utilisez");
+			System.out.println("1. Utiliser carte a ma main");
+			System.out.println("2. Utiliser carte sur la table");
+			System.out.println("3. Valider ou quitter");
+			System.out.println("Choix ：");
+			int n=Partie.sc.nextInt();
+			switch(n) {
+				case 1:
+					showCartes();
+					System.out.println("Choisi une carte");
+					int i = Partie.sc.nextInt();
+					CarteAction c= cartesALaMain.remove(i);
+					//utiliser carte
+					switch(c.getType()) {
+					case "Croyant":
+					Croyant croyant = (Croyant)c;
+					poserCroyant(croyant);
+					break;
+					case "Guide":
+					GuideSpirituel gs=(GuideSpirituel)c;
+					poserGuide(gs);
+					break;
+					case "DeuxEx":
+					DeusEx de = (DeusEx)c;
+					de.sacrifier(this);
+					break;
+					case "Apocalypse":
+					Partie.getPartie().ApocalypseProcess(this);
+					break;
+					}					
+					break;
+					
+					case 2:
+					if(this.getGuideSpirituels().size()==0) {
+						System.out.println("Vous n'avez pas encore pose guide");
+					}else {
+						for (int m = 0; m < this.getGuideSpirituels().size(); m++) {
+							System.out.println(m + ".");
+							System.out.println(this.getGuideSpirituels().get(m).toString());
+					}
+					int o = Partie.sc.nextInt();
+					this.rattacherCroyant(this.getGuideSpirituels().get(o));
+					}
+					break;
+					
+					case 3:
+					return;	
+			
+		}
 		
-		//utiliser carte
-		switch(c.getType()) {
-		case "Croyant":
-		Croyant croyant = (Croyant)c;
-		poserCroyant(croyant);
-		break;
-		case "Guide":
-		GuideSpirituel guide = (GuideSpirituel)c;
-		poserGuide(guide);
-		break;
-		case "DeuxEx":
-		DeusEx de = (DeusEx)c;
-		de.sacrifier(this);
-		break;
-		case "Apocalypse":
-		Partie.getPartie().ApocalypseProcess(this);
-		break;
 		}
 	}
+	
 	
 	
 	public void sacrifier() {
-	
-	}
-	
-	
+		showPointAction();
+		showCartes();
+		System.out.println("Choisir un carte：");
+		int i = Partie.sc.nextInt();
+		c = cartesALaMain.remove(i);
 		
-		
-	public void poserCroyant(Croyant cc) {
-			switch(cc.getOrigine()) {
-			case Carte.JOUR:
-				if(this.pointActionJour >= 1) {
-					CartesSurTable.getInstance().getCroyantDeposes().add(cc);
-					this.pointActionJour -= 1;
-				}else {
-					System.out.println("PointAction manque");
-					cartesALaMain.add(cc);
-				}
-				break;
-			case Carte.NEANT:
-				if(this.pointActionNeant >= 1) {
-					CartesSurTable.getInstance().getCroyantDeposes().add(cc);
-					this.pointActionNeant -= 1;
-				}else {
-					System.out.println("PointAction manque");
-					cartesALaMain.add(cc);
-				}
-				break;
+		switch(c.getType()) {
+			case "Croyant":
+			Croyant croyant = (Croyant)c;
+			croyant.sacrifier(this);
+			break;
 			
-			case Carte.NUIT:
-				if(this.pointActionNuit >= 1) {
-					CartesSurTable.getInstance().getCroyantDeposes().add(cc);
-					this.pointActionNuit -= 1;
-				}else {
-					System.out.println("PointAction manque");
-					cartesALaMain.add(cc);
-				}
-				break;
-			default :
-				break;
-			}
-	}
+			case "DeusEx":
+			DeusEx deusEx=(DeusEx)c;
+			deusEx.sacrifier(this);
+			break;
+			
+			case "GuideSpirituel":
+			GuideSpirituel guideSpirituel=(GuideSpirituel)c;
+			guideSpirituel.sacrifier(this);
+			break;
+			
+			case "Apocalypse":
+			Apocalypse apocalypse = (Apocalypse)c;
+			apocalypse.sacrifier(this);
+			break;
 		
-	public void poserGuide(GuideSpirituel guide) {
-		List<CarteAction> croyants = CartesSurTable.getInstance().getCroyantDeposes();
-		Scanner sc = Partie.sc;
-		
-		int idCroyant = 0; //信徒卡编号
-		
-		for (CarteAction c : croyants) {
-			System.out.println(idCroyant);
-			System.out.println(c);
 		}
+		
+		
+	}
+	
+	public void poserGuide(GuideSpirituel cs) {
+		switch(cs.getOrigine()) {
+		case Carte.JOUR:
+			if(this.pointActionJour >= 1) {
+				this.setGuideSpirituels(cs);
+				this.pointActionJour -= 1;
+			}else {
+				System.out.println("PointAction manque");
+				cartesALaMain.add(cs);
+			}
+			break;
+		case Carte.NEANT:
+			if(this.pointActionNeant >= 1) {
+				this.setGuideSpirituels(cs);
+				this.pointActionNeant -= 1;
+			}else if(this.pointActionJour >= 2) {
+				this.setGuideSpirituels(cs);
+				this.pointActionJour -=2;
+			}else if(this.pointActionNuit>=2) {
+				this.setGuideSpirituels(cs);
+				this.pointActionNuit -=2;
+			}
+			else {
+				System.out.println("PointAction manque");
+				cartesALaMain.add(cs);
+			}
+			break;
+		
+		case Carte.NUIT:
+			if(this.pointActionNuit >= 1) {
+				this.setGuideSpirituels(cs);
+				this.pointActionNuit -= 1;
+			}else {
+				System.out.println("PointAction manque");
+				cartesALaMain.add(cs);
+			}
+			break;
+		default :
+			break;
+		}
+		
+//		int i = Partie.sc.nextInt();
+//		if(this.cartesALaMain.get(i) instanceof GuideSpirituel) {
+//			GuideSpirituel g=(GuideSpirituel)this.cartesALaMain.get(i);
+//			if((g.getOrigine()=="jour"&&this.pointActionJour>=1)) {
+//				this.setGuideSpirituels(g);
+//				this.compterPointAction(g);
+//			}else if(g.getOrigine()=="nuit"&&this.pointActionNuit>=1){
+//				this.setGuideSpirituels(g);
+//				this.compterPointAction(g);
+//			}else if(g.getOrigine()=="neant"&&this.pointActionNeant>=1) {
+//				this.setGuideSpirituels(g);
+//				this.compterPointAction(g);
+//			}else if(g.getOrigine()=="neant"&&this.pointActionJour>=2){
+//				this.setGuideSpirituels(g);
+//				this.compterPointAction(g);
+//			}else if(g.getOrigine()=="neant"&&this.pointActionNuit>=2) {
+//				this.setGuideSpirituels(g);
+//				this.compterPointAction(g);
+//			}else {
+//				System.out.println("Guide rate");//pour test
+//			}
+//	}else {
+//		System.out.println("Ce n'est pas une carte guide");
+//	}
+
+		
+	}
+	
+	public void rattacherCroyant(GuideSpirituel guide) {
+		ArrayList<Croyant> croyants = CartesSurTable.getInstance().getCroyantDeposes();
+		
 		while(true) {
 			if(CartesSurTable.getInstance().getCroyantDeposes().size() == 0) {
 				System.out.println("Il n'y pas de croyant！");
@@ -138,34 +232,31 @@ public class JoueurPhysique extends Joueur {
 				System.out.println("Cette guidespirituel ratacher croyants au maximum！");
 				break;
 			}
-			
-			System.out.println("Choisir quel croyant vous voulez rattacher: ");
-			int n = -1;
-			n = sc.nextInt();
-//			boolean FLAG = false;
-//			while(!FLAG) {
-//				try{
-//					n = sc.nextInt();
-//					if(n >= 0 && n < cartesSurTable.getInstance().getCroyantDeposes().size()) {
-//						FLAG = true;
-//					}else {
-//						System.out.println("找不到该卡片，请重新输入！");
-//						sc.next();
-//						FLAG = false;
-//					}
-//				}catch(InputMismatchException e) {
-//					System.out.println("非法输入");
-//					FLAG = false;
-//				}
-//			}
-			
-			Croyant c =(Croyant) CartesSurTable.getInstance().getCroyantDeposes().remove(n);
-			guide.getCroyants().add(c);
-			guide.setNbCroyantSontRattache(guide.getNbCroyantSontRattache() + 1);
-			System.out.println("Rattacher croyant reussi！");
+			else {
+				System.out.println("Choisir quel croyant vous voulez rattacher: ");
+				int n = -1;
+				n = Partie.sc.nextInt();
+				boolean FLAG = false;
+				while(!FLAG) {
+					try{
+						n = Partie.sc.nextInt();
+						if(n >= 0 && n < CartesSurTable.getInstance().getCroyantDeposes().size()) {
+							FLAG = true;
+						}else {
+							System.out.println("on ne trouve pas ce carte");
+							Partie.sc.next();
+							FLAG = false;
+						}
+					}catch(InputMismatchException e) {
+						System.out.println("Tap Illegally");
+						FLAG = false;
+					}
+				}
+				
+//				 
+			}			
 		}
 	}
-
 	@Override
 	public void choisirUneOperation() {
 		while (true) {
@@ -189,5 +280,6 @@ public class JoueurPhysique extends Joueur {
 			}
 		}
 	}
-		
-}
+
+}		
+

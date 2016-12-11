@@ -5,17 +5,17 @@ import java.util.HashMap;
 
 import joueursControle.Joueur;
 import modele.CarteAction;
+import modele.Croyant;
 import modele.Divinite;
 
 public class CartesSurTable {
 	private static CartesSurTable instance = null;
-	private ArrayList<CarteAction> croyantDeposes;
+	private ArrayList<Croyant> croyantDeposes = new ArrayList<Croyant>();
+	private ArrayList<Divinite> divinites;
 	private HashMap<Joueur, ArrayList<CarteAction>> croyantRattaches;
 	private HashMap<Joueur, ArrayList<CarteAction>> guidesUtilises;
-	private ArrayList<Divinite> divinites;
-
 	private CartesSurTable() {
-		this.croyantDeposes = new ArrayList<CarteAction>();
+		this.croyantDeposes = new ArrayList<Croyant>();
 		this.guidesUtilises = new HashMap<Joueur, ArrayList<CarteAction>>();
 		this.croyantRattaches = new HashMap<Joueur, ArrayList<CarteAction>>();
 		this.divinites = new ArrayList<Divinite>();
@@ -29,12 +29,12 @@ public class CartesSurTable {
 	}
 
 
-	public ArrayList<CarteAction> getCroyantDeposes() {
+	public ArrayList<Croyant> getCroyantDeposes() {
 		return croyantDeposes;
 	}
 
-	public void setCroyantDeposes(ArrayList<CarteAction> croyantDeposes) {
-		this.croyantDeposes = croyantDeposes;
+	public void setCroyantDeposes(Croyant c) {
+		croyantDeposes.add(c);
 	}
 
 	public ArrayList<CarteAction> getGuidesUtilises(Joueur j) {

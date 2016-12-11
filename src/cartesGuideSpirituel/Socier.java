@@ -11,4 +11,10 @@ public class Socier extends GuideSpirituel {
 		this.origine=Carte.NUIT;
 		this.nbCroyantMax=3;
 	}
+
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
+	}
 }

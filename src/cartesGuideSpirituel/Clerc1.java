@@ -11,4 +11,10 @@ public class Clerc1 extends GuideSpirituel {
 		this.origine=Carte.NUIT;
 		this.nbCroyantMax=2;
 	}
+
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
+	}
 }

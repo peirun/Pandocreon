@@ -1,7 +1,4 @@
 package cartesCroyantJour;
-import java.util.LinkedList;
-
-import joueursControle.Joueur;
 import modele.Croyant;
 
 public class Ermite1 extends Croyant {
@@ -16,10 +13,13 @@ public class Ermite1 extends Croyant {
 		this.nbPierre=1;
 		
 	}
-	
-	public void sacrifier(Joueur joueur,LinkedList<Joueur> joueurs){
-//		joueur.sacrifierCroyant(joueurs);
+
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
 	}
+	
 		
 }
 

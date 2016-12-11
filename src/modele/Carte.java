@@ -29,6 +29,12 @@ public class Carte {
 		return this.origine;
 	}
 	
+	
+	
+	public String[] getDogmes() {
+		return dogmes;
+	}
+
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("----------------------------------------------------------------------\n");

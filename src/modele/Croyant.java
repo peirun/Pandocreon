@@ -16,6 +16,8 @@ public abstract class Croyant extends CarteAction implements Sacrifier {
 	
 	
 	
+	
+	
 	public boolean isEstRattache() {
 		return estRattache;
 	}

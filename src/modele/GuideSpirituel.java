@@ -6,7 +6,7 @@ import java.util.List;
 import interfaceBoite.Sacrifier;
 import joueursControle.Joueur;
 
-public class GuideSpirituel extends CarteAction implements Sacrifier {
+public abstract class GuideSpirituel extends CarteAction implements Sacrifier {
 	protected int nbCroyantMax;
 	protected int nbCroyantSontRattache;
 	protected List<Croyant> croyants=new ArrayList<Croyant>();
@@ -18,7 +18,7 @@ public class GuideSpirituel extends CarteAction implements Sacrifier {
 		
 	}
 	@Override
-	public void sacrifier(Joueur joueur) {
+	public void sacrifier(Joueur j) {
 		// TODO Auto-generated method stub
 
 	}

@@ -11,4 +11,10 @@ public class Ascete extends GuideSpirituel {
 		this.origine=Carte.NUIT;
 		this.nbCroyantMax=1;
 	}
+
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
+	}
 }

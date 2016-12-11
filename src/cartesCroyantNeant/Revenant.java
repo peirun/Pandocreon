@@ -22,4 +22,10 @@ public class Revenant extends Croyant{
 //		}
 	}
 
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -13,4 +13,10 @@ public class Anarchiste extends GuideSpirituel {
 		this.nbCroyantMax=3;
 	}
 
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

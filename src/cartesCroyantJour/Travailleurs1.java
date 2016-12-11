@@ -1,5 +1,4 @@
 package cartesCroyantJour;
-import joueursControle.Joueur;
 import modele.Croyant;
 
 public class Travailleurs1 extends Croyant{
@@ -13,10 +12,6 @@ public class Travailleurs1 extends Croyant{
 		this.nbPierre=2;
 	}
 	
-	public void sacrifier(Joueur joueur){
-//		joueur.setPeutSacrifierCroyant(false);
-	}
-
 	
 //=============================================================================
 	public String[] getDogemesDivinite() {
@@ -25,6 +20,12 @@ public class Travailleurs1 extends Croyant{
 
 	public void setDogemesDivinite(String[] dogemesDivinite) {
 		this.dogemesDivinite = dogemesDivinite;
+	}
+
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

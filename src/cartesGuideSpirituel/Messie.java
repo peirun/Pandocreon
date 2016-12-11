@@ -11,4 +11,10 @@ public class Messie extends GuideSpirituel {
 		this.origine=Carte.JOUR;
 		this.nbCroyantMax=3;
 	}
+
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
+	}
 }

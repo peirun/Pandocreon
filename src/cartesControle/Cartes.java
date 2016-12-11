@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 
+import cartesApocalypse.*;
 import cartesCroyantJour.Diplomates;
 import cartesCroyantJour.Ermite1;
 import cartesCroyantJour.Ermite2;
@@ -53,6 +54,7 @@ import cartesDeusEx.InfluenceNuit;
 import cartesDeusEx.InfluenceNulle1;
 import cartesDeusEx.InfluenceNulle2;
 import cartesDeusEx.Inquisition;
+import cartesDeusEx.Miroir;
 import cartesDeusEx.OrdreCeleste;
 import cartesDeusEx.Phoenix;
 import cartesDeusEx.Stase;
@@ -164,11 +166,20 @@ public class Cartes {
 		cartes.add(new InfluenceNulle1());
 		cartes.add(new InfluenceNulle2());
 		cartes.add(new Inquisition());
+		cartes.add(new Miroir());
 		cartes.add(new OrdreCeleste());
 		cartes.add(new Phoenix());
 		cartes.add(new Stase());
 		cartes.add(new Transe());
 		cartes.add(new TrouNoir());
+		
+		//ajouter apocalypse
+		cartes.add(new Apocalypse1());
+		cartes.add(new Apocalypse2());
+		cartes.add(new Apocalypse3());
+		cartes.add(new Apocalypse4());
+		cartes.add(new Apocalypse5());
+		
 		melanger();
 	}
 	

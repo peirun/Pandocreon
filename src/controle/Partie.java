@@ -5,6 +5,7 @@ import joueursControle.*;
 import modele.Croyant;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -17,6 +18,23 @@ public class Partie {
 	private Tour tour;
 	private CartesSurTable cartesSurTable;
 	public static Scanner sc = new Scanner(System.in);
+
+	public static int getInt(String question, int min, int max) {
+		int nb = 0;
+		do {
+		try {
+			System.out.print(question);
+			nb = sc.nextInt();
+			if(nb<min || nb> max) {
+				System.out.println("Nombre invalide");
+			}
+		}catch(InputMismatchException e){
+				System.out.println("Nombre invalide");
+			}
+			sc.nextLine();
+			}while (nb < min || nb > max);
+		return nb;
+	}
 
 	public static Partie getInstance() {
 		if (instance == null) {
@@ -71,7 +89,8 @@ public class Partie {
 		this.tour.commencerNouveauTour();
 	}
 
-	// Decider qui va gagner
+	// renvoyer index qui va gagner et perdre 
+	// siil y a des doublons , comment on trait? 
 	 public int compareNbPriere() {
 	 	if(this.joueurs.size() <= 3) {
 			 int max= joueurs.get(0).getNbPriere();
@@ -135,39 +154,38 @@ public class Partie {
 	public void ApocalypseProcess(Joueur j) {
 		 int index = this.compareNbPriere();
 		 if(this.getNbJoueurs() <= 3) {
-		 if(index != -1) {
-		 System.out.println("Joueur" + this.joueurs.get(index).getNumJoueur() +
-		 "Gagne£¡£¡£¡");
-		 this.terminerPartie();
-		 }else {
-		 System.out.println("Apocalypse inutile£¡");
+		 	if(index != -1) {
+		 		System.out.println("Joueur" + this.joueurs.get(index).getNumJoueur() +
+		 			"Gagne£¡£¡£¡");
+		 		this.terminerPartie();
+		 	}else {
+		 	System.out.println("Apocalypse inutile£¡");
 		 //System.gc();
-		 this.tour = new Tour(this.joueurs);
-		 tour.setEnableApocalypse(false);
-		 System.out.println("Entre la tour prochain£¡");
-		 tour.commencerNouveauTour();
-		 }
+		 	this.tour = new Tour(this.joueurs);
+		 	System.out.println("Entre la tour prochain£¡");
+		 	tour.commencerNouveauTour();
+		 	}
 		 }else {
-		 if(index != -1) {
-		 Joueur jF = this.getJoueurs().get(index); //joueur perdu
-		 System.out.println("Joueur" + j.getNumJoueur() + "joueur go out£¡£¡£¡");
-		 Iterator<Croyant> itCroyantDeJF = jF.getCroyants().iterator();
-		 while(itCroyantDeJF.hasNext()) {
-		 this.cartesSurTable.getCroyantDeposes().add(itCroyantDeJF.next());
-		 }
-		 this.supprimerJoueur(this.getJoueurs().get(index));
+		 	if(index != -1) {
+		 		Joueur jF = this.getJoueurs().get(index); //joueur perdu
+		 		System.out.println("Joueur" + j.getNumJoueur() + "joueur go out£¡£¡£¡");
+		 		Iterator<Croyant> itCroyantDeJF = jF.getCroyants().iterator();
+		 		while(itCroyantDeJF.hasNext()) {
+				 this.cartesSurTable.getCroyantDeposes().add(itCroyantDeJF.next());
+		 		}
+		 		this.supprimerJoueur(this.getJoueurs().get(index));
 		 //System.gc();
-		 this.tour = new Tour(this.joueurs);
-		 tour.setEnableApocalypse(false);
-		 System.out.println("La tour prochain£¡");
-		 tour.commencerNouveauTour();
-		 }else {
-		 System.out.println("Apolypse inutile£¡");
+			 	this.tour = new Tour(this.joueurs);
+		 		tour.setEnableApocalypse(false);
+		 		System.out.println("La tour prochain£¡");
+		 		tour.commencerNouveauTour();
+		 	}else {
+		 		System.out.println("Apolypse inutile£¡");
 		 //System.gc();
-		 this.tour = new Tour(this.joueurs);
-		 tour.setEnableApocalypse(false);
-		 System.out.println("La tour prochain£¡");
-		 tour.commencerNouveauTour();
+		 		this.tour = new Tour(this.joueurs);
+		 		tour.setEnableApocalypse(false);
+		 		System.out.println("La tour prochain£¡");
+		 		tour.commencerNouveauTour();
 		 }
 		 }
 	}
@@ -194,5 +212,10 @@ public class Partie {
 
 	public ArrayList<Joueur> getJoueurs() {
 		return this.joueurs;
+	}
+
+	public static int getUtiliser(String string, int i, int j) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

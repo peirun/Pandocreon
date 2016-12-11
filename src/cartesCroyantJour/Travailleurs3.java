@@ -21,4 +21,10 @@ public class Travailleurs3 extends Croyant{
 		
 	}
 
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

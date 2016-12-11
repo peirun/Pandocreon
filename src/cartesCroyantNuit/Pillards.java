@@ -24,6 +24,12 @@ public class Pillards extends Croyant {
 //		joueur.setPointActionNeant(0);
 //		
 	}
+
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
+	}
 		
 }
 

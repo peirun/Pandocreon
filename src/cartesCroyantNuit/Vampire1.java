@@ -19,6 +19,12 @@ public class Vampire1 extends Croyant {
 	public void sacrifier(Joueur joueur,LinkedList<Joueur> joueurs){
 //		joueur.sacrifierCroyant(joueurs);
 	}
+
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
+	}
 		
 }
 

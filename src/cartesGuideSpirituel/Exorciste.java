@@ -11,4 +11,10 @@ public class Exorciste extends GuideSpirituel {
 		this.origine=Carte.JOUR;
 		this.nbCroyantMax=1;
 	}
+
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
+	}
 }

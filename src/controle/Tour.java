@@ -3,7 +3,6 @@ package controle;
 import java.util.ArrayList;
 
 import joueursControle.Joueur;
-import joueursControle.JoueurPhysique;
 
 public class Tour {
 	private ArrayList<Joueur> joueurs;
@@ -49,7 +48,7 @@ public class Tour {
 			while (i2 < joueurs.size()) {
 				Joueur j2 = joueurs.get(i2);
 				if ("nuit".equalsIgnoreCase(j2.getOrigine())) {
-					j2.setPointActionJour(j2.getPointActionJour() + 2);
+					j2.setPointActionNuit(j2.getPointActionNuit() + 2);
 				} else if ("crepuscule".equalsIgnoreCase(j2.getOrigine())) {
 					j2.setPointActionNuit(j2.getPointActionNuit() + 1);
 				}
@@ -65,12 +64,15 @@ public class Tour {
 
 	private void joueurSuivant() {
 		System.out.println("Joueur " + joueurCourant);
-		if(joueurs.get(joueurCourant) instanceof JoueurPhysique) {
-			//JoueurPhysique.getDivinite();
-			JoueurPhysique joueur = (JoueurPhysique) joueurs.get(joueurCourant);
-			joueur.showPoinAction();
-			joueur.showCartes();
-		}
+		joueurs.get(joueurCourant).showPointAction();
+		joueurs.get(joueurCourant).showCartes();
+		joueurs.get(joueurCourant).phase();
+//		if(joueurs.get(joueurCourant) instanceof JoueurPhysique) {
+//			//JoueurPhysique.getDivinite();
+//			JoueurPhysique joueur = (JoueurPhysique) joueurs.get(joueurCourant);
+//			joueur.showPointAction();
+//			joueur.showCartes();
+//		}
 		joueurs.get(joueurCourant).phase();
 	}
 

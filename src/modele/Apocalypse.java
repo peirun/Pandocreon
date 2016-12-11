@@ -2,7 +2,7 @@ package modele;
 import joueursControle.*;
 
 
-public class Apocalypse extends CarteAction{
+public abstract class Apocalypse extends CarteAction{
 	public Apocalypse() {
 		super();
 		this.type="Apocalypse";

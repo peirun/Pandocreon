@@ -1,8 +1,8 @@
 package modele;
 
-import joueursControle.JoueurPhysique;
+import joueursControle.Joueur;
 
-public class DeusEx extends CarteAction {
+public abstract class DeusEx extends CarteAction {
 	public DeusEx() {
 		super();
 		this.type="DeusEx";
@@ -12,7 +12,7 @@ public class DeusEx extends CarteAction {
 	
 	}
 	
-	public void sacrifier(JoueurPhysique joueurPhysique) {
+	public void sacrifier(Joueur j) {
 	
 	}
 }

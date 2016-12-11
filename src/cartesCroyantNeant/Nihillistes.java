@@ -21,4 +21,10 @@ public class Nihillistes extends Croyant{
 //		}
 	}
 
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

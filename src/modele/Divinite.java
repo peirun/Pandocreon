@@ -11,7 +11,7 @@ public abstract class Divinite extends Carte {
 	
 		StringBuffer sb= new StringBuffer();
 		
-		sb.append("Divinite:" +this.nom);
+		sb.append("Divinite:" +this.nom+" ");
 		sb.append("Origine:"+this.origine);
 		return sb.toString();
 	}

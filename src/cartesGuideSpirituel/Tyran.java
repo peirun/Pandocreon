@@ -11,4 +11,10 @@ public class Tyran extends GuideSpirituel {
 		this.origine=Carte.NEANT;
 		this.nbCroyantMax=3;
 	}
+
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
+	}
 }

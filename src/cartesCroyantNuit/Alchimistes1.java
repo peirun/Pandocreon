@@ -26,4 +26,10 @@ public class Alchimistes1 extends Croyant{
 		this.dogemesDivinite = dogemesDivinite;
 	}
 
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

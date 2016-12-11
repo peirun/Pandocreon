@@ -1,15 +1,24 @@
 package joueursControle;
 
-import modele.*;
-import cartesControle.*;
-import controle.*;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import cartesControle.Cartes;
+import cartesControle.CartesDivinite;
+import cartesControle.CartesSurTable;
+import controle.Partie;
+import controle.Tour;
+import modele.Carte;
+import modele.CarteAction;
+import modele.Croyant;
+import modele.Divinite;
+import modele.GuideSpirituel;
+
 public abstract class Joueur {
 
+	private static final int CarteAction = 0;
 	protected int numJoueur;
 	protected ArrayList<CarteAction> cartesALaMain;
 	protected Divinite divinite;
@@ -19,7 +28,6 @@ public abstract class Joueur {
 	protected int nbPriere;
 	protected List<Croyant> croyants = new ArrayList<Croyant>();
 	protected List<GuideSpirituel> guideSpirituels = new ArrayList<GuideSpirituel>();
-
 	public Joueur() {
 		
 		setCartesALaMain(new ArrayList<CarteAction>());
@@ -37,7 +45,7 @@ public abstract class Joueur {
 	public abstract void choisirUneOperation();
 	
 
-	public final void completerMain() {
+	public void completerMain() {
 		// test
 		Cartes cartes = Cartes.getInstance();
 		System.out.println("completerMain");
@@ -52,6 +60,7 @@ public abstract class Joueur {
 	public void sacrifier() {
 		// test
 		System.out.println("sacrifier");
+		
 	}
 	public abstract void utiliser();
 
@@ -73,21 +82,133 @@ public abstract class Joueur {
 	public void phase() {
 		// test
 		System.out.println("PHASE COMMENCE");
-		System.out.println(CartesSurTable.getInstance().getCroyantDeposes());
-		System.out.println(CartesSurTable.getInstance().getCroyantRattaches(this));
-		System.out.println(CartesSurTable.getInstance().getGuidesUtilises(this));
+		
+		this.showCarteDeposes();
 		this.choisirDefausse();
 		this.completerMain();
 		this.choisirUneOperation();
 	}
 	
-	public void showPoinAction() {
-		System.out.println("Divinite:"+this.getDivinite());
+	public void showCarteDeposes() {
+		if(CartesSurTable.getInstance().getCroyantDeposes().size()==0) {
+			System.out.println("Il n'y a pas de croyant depose");
+		}else {
+			for (int i = 0; i < CartesSurTable.getInstance().getCroyantDeposes().size(); i++) {
+				System.out.println("Croyants deposes sur la table :");
+				System.out.print(i + ".");
+				System.out.println(CartesSurTable.getInstance().getCroyantDeposes().get(i).toString());
+			}
+		}
+		
+		if(this.getGuideSpirituels().size()==0) {
+			System.out.println("Vous n'avez pas encore pose une guide");
+		}else {
+			for (int i = 0; i < this.getGuideSpirituels().size(); i++) {
+				System.out.println("Votre guide posee :");
+				System.out.print(i + ".");
+				System.out.println(this.getGuideSpirituels().get(i).toString());
+				if(this.getGuideSpirituels().get(i).getCroyants().size()==0) {
+					System.out.println("Cette carte n'a pas de croyant rattacher");
+				}else {
+					for(int j=0; j < this.getGuideSpirituels().get(i).getCroyants().size(); j++) {
+						System.out.print(i + ".");
+						System.out.println(this.getGuideSpirituels().get(i).getCroyants().get(j).toString());
+					}
+				}
+			}
+		}
+	}
+	
+	public void showPointAction() {
+		System.out.println(this.getDivinite());
 		System.out.println("Jour:"+ this.getPointActionJour());
 		System.out.println("Nuit:"+this.getPointActionNuit());
 		System.out.println("Neant:"+this.getPointActionNeant());	
 	}
-
+	
+	public void poserCroyant(Croyant cc) {
+		switch(cc.getOrigine()) {
+		case Carte.JOUR:
+			if(this.pointActionJour >= 1) {
+				CartesSurTable.getInstance().getCroyantDeposes().add(cc);
+				this.pointActionJour -= 1;
+			}else {
+				System.out.println("PointAction manque");
+				cartesALaMain.add(cc);
+			}
+			break;
+		case Carte.NEANT:
+			if(this.pointActionNeant >= 1) {
+				CartesSurTable.getInstance().getCroyantDeposes().add(cc);
+				this.pointActionNeant -= 1;
+			}else {
+				System.out.println("PointAction manque");
+				cartesALaMain.add(cc);
+			}
+			break;
+		
+		case Carte.NUIT:
+			if(this.pointActionNuit >= 1) {
+				CartesSurTable.getInstance().getCroyantDeposes().add(cc);
+				this.pointActionNuit -= 1;
+			}else {
+				System.out.println("PointAction manque");
+				cartesALaMain.add(cc);
+			}
+			break;
+		default :
+			break;
+		}
+}
+	
+	public void rattacherCroyant(GuideSpirituel gs) {
+		for(int j=0;j<CartesSurTable.getInstance().getCroyantDeposes().size();j++) {
+			for(int k=0;k<CartesSurTable.getInstance().getCroyantDeposes().get(j).getDogmes().length;k++) {
+				for(int l=0;l<gs.getDogmes().length;l++) {
+					if(gs.getDogmes()[l]==CartesSurTable.getInstance().getCroyantDeposes().get(j).getDogmes()[k]) {
+						Croyant c =(Croyant) CartesSurTable.getInstance().getCroyantDeposes().remove(j);
+						gs.getCroyants().add(c);
+						gs.setNbCroyantSontRattache(gs.getNbCroyantSontRattache() + 1);
+						this.setCroyants(c);
+						System.out.println("Rattacher croyant reussi£¡");
+						
+				}else {
+					break;
+				}
+			}
+		}
+	}
+		
+	}
+	public void poserGuide(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void compterPointAction(CarteAction carteAction) {
+		switch(carteAction.getOrigine()) {
+			case "jour":
+				this.setPointActionJour(this.getPointActionJour()-1);
+				return;
+			case "nuit":
+				this.setPointActionNuit(this.getPointActionNuit()-1);
+				return;
+			case "neant":
+				if(this.getPointActionNeant()>=1) {
+					this.setPointActionNeant(this.getPointActionNeant()-1);
+					return;
+				}else if(this.getPointActionJour()>=2) {
+					this.setPointActionJour(this.getPointActionJour()-2);
+					return;
+				}else if(this.getPointActionNuit()>=2) {
+					this.setPointActionNuit(this.getPointActionNuit()-2);
+					return;
+				}
+			default:
+			return;			
+		}
+	}
+	
 	// herite des methodes du joueur
 
 	public int getNumJoueur() {
@@ -146,20 +267,29 @@ public abstract class Joueur {
 		return croyants;
 	}
 
-	public void setCroyants(List<Croyant> croyants) {
-		this.croyants = croyants;
+	public void setCroyants(Croyant c) {
+		this.croyants.add(c);
 	}
 
 	public List<GuideSpirituel> getGuideSpirituels() {
 		return guideSpirituels;
 	}
 
-	public void setGuideSpirituels(List<GuideSpirituel> guideSpirituels) {
-		this.guideSpirituels = guideSpirituels;
+	public void setGuideSpirituels(GuideSpirituel gs) {
+		this.guideSpirituels.add(gs);
 	}
 
 	public int getNbPriere() {
 		return nbPriere;
 	}
+
+	public void showCartes() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+	
 
 }

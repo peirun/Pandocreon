@@ -25,4 +25,10 @@ public class Alienes2 extends Croyant{
 	public void setDogemesDivinite(String[] dogemesDivinite) {
 		this.dogemesDivinite = dogemesDivinite;
 	}
+
+	@Override
+	public void sacrifier() {
+		// TODO Auto-generated method stub
+		
+	}
 }
