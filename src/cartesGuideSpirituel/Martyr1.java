@@ -1,5 +1,7 @@
 package cartesGuideSpirituel;
 
+import controle.Partie;
+import joueursControle.Joueur;
 import modele.Carte;
 import modele.GuideSpirituel;
 
@@ -17,4 +19,9 @@ public class Martyr1 extends GuideSpirituel {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void sacrifier(Joueur j) {
+		Partie.getInstance().ApocalypseProcess(j);
+	}
+	
 }

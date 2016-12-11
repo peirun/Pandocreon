@@ -1,4 +1,5 @@
 package cartesCroyantNuit;
+import joueursControle.Joueur;
 import modele.CarteAction;
 import modele.Croyant;
 
@@ -14,6 +15,10 @@ public class Demons3 extends Croyant {
 	
 	public void sacrifier(){
 //		this.joueur.setPointActionNuit(this.joueur.getPointActionNuit()+1);
+	}
+	
+	public void sacrifier(Joueur joueur){
+		joueur.setPointActionNuit(joueur.getPointActionNuit()+1);
 	}
 		
 }

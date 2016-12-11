@@ -1,7 +1,6 @@
 package joueursControle;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -18,8 +17,8 @@ import modele.GuideSpirituel;
 
 public abstract class Joueur {
 
-	private static final int CarteAction = 0;
 	protected int numJoueur;
+	protected Tour tour;
 	protected ArrayList<CarteAction> cartesALaMain;
 	protected Divinite divinite;
 	protected int pointActionJour;
@@ -284,9 +283,14 @@ public abstract class Joueur {
 	}
 
 	public void showCartes() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
+
+	public Tour getTour() {
+		return tour;
+	}
+	
+	
 
 	
 

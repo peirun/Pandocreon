@@ -1,8 +1,6 @@
 package joueursControle;
 
-import java.nio.channels.NetworkChannel;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import cartesControle.CartesSurTable;
 import controle.Partie;

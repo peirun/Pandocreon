@@ -1,4 +1,5 @@
 package cartesCroyantJour;
+import controle.Partie;
 import modele.Croyant;
 
 public class Diplomates extends Croyant{
@@ -17,6 +18,11 @@ public class Diplomates extends Croyant{
 	@Override
 	public void sacrifier() {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	public void sacrifier(Joueur joueur) {
+		joueur.
 		
 	}
 
