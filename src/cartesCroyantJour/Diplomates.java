@@ -1,5 +1,6 @@
 package cartesCroyantJour;
 import controle.Partie;
+import joueursControle.Joueur;
 import modele.Croyant;
 
 public class Diplomates extends Croyant{
@@ -22,7 +23,7 @@ public class Diplomates extends Croyant{
 	}
 	
 	public void sacrifier(Joueur joueur) {
-		joueur.
+	
 		
 	}
 
