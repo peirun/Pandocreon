@@ -1,6 +1,10 @@
 package cartesCroyantNeant;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
+import Input.Input;
+import controle.Partie;
 import joueursControle.Joueur;
 import modele.Croyant;
 
@@ -15,8 +19,16 @@ public class Revolutionnaires extends Croyant {
 		this.nbPierre=2;
 	}
 	
-	public void sacrifier(Joueur joueur,LinkedList<Joueur> joueurs){
-//		joueur.sacrifierCroyant(joueurs);
+	public void sacrifier(Joueur joueur) {
+		
+		ArrayList<Joueur> js = Partie.getInstance().getJoueurs();
+		Iterator<Joueur> it = js.iterator();
+		System.out.print("choisir un joueur: ");
+		while(it.hasNext()) {
+			System.out.println("NumJoueur" + it.next().getNumJoueur());
+		}
+		int i = Input.getInt();
+		js.get(i).sacrifier();
 	}
 
 	@Override
