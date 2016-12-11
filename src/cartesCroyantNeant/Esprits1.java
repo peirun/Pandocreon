@@ -1,4 +1,5 @@
 package cartesCroyantNeant;
+import joueursControle.Joueur;
 import modele.Croyant;
 
 public class Esprits1 extends Croyant {
@@ -13,6 +14,10 @@ public class Esprits1 extends Croyant {
 	
 	public void sacrifier(){
 //		this.joueur.setPointActionNeant(this.joueur.getPointActionNeant()+1);
+	}
+	
+	public void sacrifier(Joueur joueur){
+		joueur.setPointActionNeant(joueur.getPointActionNeant()+1);
 	}
 		
 }

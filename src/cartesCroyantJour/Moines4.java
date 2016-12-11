@@ -1,4 +1,5 @@
 package cartesCroyantJour;
+import joueursControle.Joueur;
 import modele.Croyant;
 
 public class Moines4 extends Croyant {
@@ -16,6 +17,10 @@ public class Moines4 extends Croyant {
 	
 	public void sacrifier(){
 //		this.joueur.setPointActionJour(this.joueur.getPointActionJour()+1);
+	}
+	
+	public void sacrifier(Joueur joueur){
+		joueur.setPointActionJour(joueur.getPointActionJour()+1);
 	}
 		
 }
